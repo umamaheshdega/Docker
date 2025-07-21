@@ -1,7 +1,7 @@
 arg version
 from almalinux:${version:-9}
 env course = "devops" \
-    trainer = "sivakumar"
+    trainer = "sivakumar" \
     duration = "120hrs"
 arg username = sivakumar
 env username = $username
