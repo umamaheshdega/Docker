@@ -4,6 +4,7 @@ copy package.json ./
 copy *.js ./
 run npm install
 
+from node:20
 run addgroup -S expense && adduser -S expense -G expense && \
     mkdir /opt/backend && \
     chown -R expense:expense /opt/backend
