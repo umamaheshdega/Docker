@@ -11,5 +11,5 @@ run addgroup -S expense && adduser -S expense -G expense && \
 env  DB_HOST="mysql"
 workdir /opt/backend
 user expense
-copy --from=builder /opt/backend /opt/backend
+# copy --from=builder /opt/backend /opt/backend
 cmd ["node", "index.js"]
