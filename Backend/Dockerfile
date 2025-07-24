@@ -5,9 +5,9 @@ copy *.js ./
 run npm install
 
 from node:20
-run addgroup -S expense && \
+run groupadd -r expense && \
     useradd -r -g expense expense && \
-    mkdir /opt/backend && \
+    mkdir -p /opt/backend && \
     chown -R expense:expense /opt/backend
 env  DB_HOST="mysql"
 workdir /opt/backend
