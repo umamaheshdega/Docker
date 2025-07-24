@@ -1,18 +1,13 @@
-FROM node:20 AS builder
-
+# FROM node:20 AS builder
+FROM node:20.18.3-alpine3.21 AS builder
 WORKDIR /opt/backend
-
-# Copy dependencies first
-COPY package*.json ./
-
+COPY package.json ./
+COPY *.js ./
 RUN npm install
 
-# Copy source files (make sure index.js exists)
-COPY index.js /opt/backend/
-COPY . /opt/backend/
-
 # ---------- Stage 2: Final ----------
-FROM node:20
+# FROM node:20
+FROM node:20.18.3-alpine3.21
 
 # Create user and app dir
 RUN groupadd -r expense && \
@@ -24,11 +19,11 @@ ENV DB_HOST="mysql"
 
 WORKDIR /opt/backend
 
-# Copy build artifacts from builder stage
-COPY --from=builder /opt/backend /opt/backend
-
 # Use non-root user
 USER expense
+
+# Copy build artifacts from builder stage
+COPY --from=builder /opt/backend /opt/backend
 
 # Start the app
 CMD ["node", "index.js"]
