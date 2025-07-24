@@ -10,9 +10,10 @@ RUN npm install
 FROM node:20.18.3-alpine3.21
 
 # Create user and app dir
-RUN groupadd -r expense && \
+RUN apk add --no-cache shadow && \
+    groupadd -r expense && \
     useradd -r -g expense expense && \
-Run mkdir -p /opt/backend && \
+    mkdir -p /opt/backend && \
     chown -R expense:expense /opt/backend
 
 ENV DB_HOST="mysql"
