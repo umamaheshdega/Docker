@@ -9,6 +9,7 @@ RUN npm install
 
 # Copy source files (make sure index.js exists)
 COPY index.js /opt/backend/
+COPY . /opt/backend/
 
 # ---------- Stage 2: Final ----------
 FROM node:20
