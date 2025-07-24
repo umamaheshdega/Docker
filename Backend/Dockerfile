@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy source files (make sure index.js exists)
-COPY *.js ./
+COPY . .
 
 # ---------- Stage 2: Final ----------
 FROM node:20
