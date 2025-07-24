@@ -1,16 +1,33 @@
-from node:20
-workdir /opt/backend
-copy package.json ./
-copy *.js ./
-run npm install
+FROM node:20 AS builder
 
-from node:20
-run groupadd -r expense && \
+WORKDIR /opt/backend
+
+# Copy dependencies first
+COPY package*.json ./
+
+RUN npm install
+
+# Copy source files (make sure index.js exists)
+COPY *.js ./
+
+# ---------- Stage 2: Final ----------
+FROM node:20
+
+# Create user and app dir
+RUN groupadd -r expense && \
     useradd -r -g expense expense && \
     mkdir -p /opt/backend && \
     chown -R expense:expense /opt/backend
-env  DB_HOST="mysql"
-workdir /opt/backend
-user expense
-# copy --from=builder /opt/backend /opt/backend
-cmd ["node", "index.js"]
+
+ENV DB_HOST="mysql"
+
+WORKDIR /opt/backend
+
+# Copy build artifacts from builder stage
+COPY --from=builder /opt/backend /opt/backend
+
+# Use non-root user
+USER expense
+
+# Start the app
+CMD ["node", "index.js"]
