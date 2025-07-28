@@ -17,12 +17,8 @@ app.use(cors());
 // =======================================================
 
 //Health Checking
-app.get('/health', (req, res) => {
-    res.status(200).json({
-        status: "ok",
-        version: "blue-3.0.0",
-        timestamp: new Date().toISOString()
-    });
+app.get('/health',(req,res)=>{
+    res.json("This is the health check for blue-3.0.0");
 });
 
 // ADD TRANSACTION
