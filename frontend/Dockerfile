@@ -9,7 +9,7 @@ RUN rm -rf /usr/share/nginx/html/index.html && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /etc/nginx/ && \
     chmod -R 755 /etc/nginx/ && \
-    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /var/log/nginx 
 COPY nginx.conf /etc/nginx/nginx.conf 
 COPY code /usr/share/nginx/html/
 USER nginx
